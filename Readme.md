@@ -297,16 +297,19 @@ mosquitto_pub -h localhost -t "sony/tv/TV-1/cmd/power_on" -m "true"
 
 **Set volume to 25:**
 
-```mosquitto_pub -h localhost -t "sony/tv/TV-1/cmd/vol_set" -m '{"level":25}'
+```
+mosquitto_pub -h localhost -t "sony/tv/TV-1/cmd/vol_set" -m '{"level":25}'
 ```
 
 ---
 
 **Press the “Home” IRCC button:**
-```mosquitto_pub -h localhost -t "sony/tv/TV-1/ircc/home" -m "true"
+```
+mosquitto_pub -h localhost -t "sony/tv/TV-1/ircc/home" -m "true"
 ```
 
 **Subscribe to volume updates:**
-```mosquitto_sub -h localhost -t "sony/tv/TV-1/status/volume"
+```
+mosquitto_sub -h localhost -t "sony/tv/TV-1/status/volume"
 ```
 
