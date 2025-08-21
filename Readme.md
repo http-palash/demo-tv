@@ -1,4 +1,4 @@
-# MQTT Topics for TV Control
+# MQTT Topics for TV Control Version 1
 
 ## 1. Power Control
 
@@ -141,7 +141,7 @@ For all remote control key commands, the **attribute** is either `null` or used 
 ---
 
 
-# MQTT Topic Mapping – Previous vs Updated Format
+# MQTT Topic Mapping – Previous vs Updated Format Version 2
 
 This table compares the previous MQTT topic structure used in the Sony TV app with the updated standardized format:
 
