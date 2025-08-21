@@ -179,3 +179,134 @@ This table compares the previous MQTT topic structure used in the Sony TV app wi
 
 > Replace `nrk` with your actual site name and `meeting_room` with the correct room identifier as per deployment.
 
+
+
+# Sony Bravia TV MQTT Topics
+
+This document defines the MQTT topics and payloads for controlling Sony Bravia TVs via MQTT.
+
+---
+
+##  MQTT Topic Structure for version 3
+
+
+Where:
+
+- `<TV_NAME>` → Name of the TV (e.g., `TV-1`, `MeetingRoomTV`)  
+- `<COMMAND>` → Commands like `power_on`, `vol_set`, `input_hdmi`  
+- `<PROPERTY>` → TV properties to monitor (`power`, `volume`, `mute`, `input`)  
+- `<IRCC_KEY>` → IRCC remote buttons (`home`, `up`, `down`, `vol_up`, `vol_down`, etc.)
+
+---
+
+##  Full MQTT Topic List
+
+### Power
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/cmd/power_on` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/power_off` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/power_toggle` | `"true"` |
+| `sony/tv/<TV_NAME>/status/power` | `"ON"` / `"OFF"` |
+
+---
+
+### Volume / Mute
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/cmd/vol_set` | `{"level": 20}` |
+| `sony/tv/<TV_NAME>/cmd/vol_up` | `"1"` |
+| `sony/tv/<TV_NAME>/cmd/vol_down` | `"1"` |
+| `sony/tv/<TV_NAME>/cmd/vol_get` | `"true"` |
+| `sony/tv/<TV_NAME>/status/volume` | `0-99` |
+| `sony/tv/<TV_NAME>/cmd/mute_on` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/mute_off` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/mute_toggle` | `"true"` |
+| `sony/tv/<TV_NAME>/status/mute` | `"ON"` / `"OFF"` |
+
+---
+
+### Input Selection
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/cmd/input_hdmi` | `"1"` / `"2"` / `"3"` / `"4"` |
+| `sony/tv/<TV_NAME>/cmd/input_composite` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/input_component` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/input_mirror` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/input_get` | `"true"` |
+| `sony/tv/<TV_NAME>/status/input` | `"HDMI1"`, `"HDMI2"`, `"Composite"`, `"Screen Mirroring"` |
+
+---
+
+### Picture Mute
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/cmd/pmute_on` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/pmute_off` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/pmute_toggle` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/pmute_get` | `"true"` |
+| `sony/tv/<TV_NAME>/status/pmute` | `"ON"` / `"OFF"` |
+
+---
+
+### Scene / Picture Mode
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/cmd/scene_auto` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/scene_auto24p` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/scene_general` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/scene_get` | `"true"` |
+| `sony/tv/<TV_NAME>/status/scene` | `"Auto"`, `"Auto24p"`, `"General"` |
+
+---
+
+### Network Info
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/cmd/net_broadcast` | `"true"` |
+| `sony/tv/<TV_NAME>/cmd/net_mac` | `"true"` |
+| `sony/tv/<TV_NAME>/status/broadcast` | `"192.168.x.x"` |
+| `sony/tv/<TV_NAME>/status/mac` | `"AA:BB:CC:DD:EE:FF"` |
+
+---
+
+### IRCC Remote
+
+| Topic | Payload |
+|-------|---------|
+| `sony/tv/<TV_NAME>/ircc/<IRCC_KEY>` | `"true"` |
+
+**Example IRCC keys:**  
+`home`, `options`, `return`, `hdmi1`, `hdmi2`, `vol_up`, `vol_down`, `mute`, `play`, `pause`, `red`, `green`, `blue`, `yellow`, `0-9`, `input`, `up`, `down`, `left`, `right`, `enter`
+
+---
+
+
+**Turn on TV-1 via MQTT:**
+
+```
+mosquitto_pub -h localhost -t "sony/tv/TV-1/cmd/power_on" -m "true"
+```
+---
+
+**Set volume to 25:**
+
+```mosquitto_pub -h localhost -t "sony/tv/TV-1/cmd/vol_set" -m '{"level":25}'
+```
+
+---
+
+**Press the “Home” IRCC button:**
+```mosquitto_pub -h localhost -t "sony/tv/TV-1/ircc/home" -m "true"
+```
+
+**Subscribe to volume updates:**
+```mosquitto_sub -h localhost -t "sony/tv/TV-1/status/volume"
+```
+
