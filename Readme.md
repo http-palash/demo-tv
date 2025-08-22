@@ -208,7 +208,7 @@ Where:
 | `sony/tv/<TV_NAME>/cmd/power_on` | `"true"` |
 | `sony/tv/<TV_NAME>/cmd/power_off` | `"true"` |
 | `sony/tv/<TV_NAME>/cmd/power_toggle` | `"true"` |
-| `sony/tv/<TV_NAME>/status/power` | `"ON"` / `"OFF"` |
+| `sony/tv/<TV_NAME>/cmd/power_get` | `"ON"` / `"OFF"` |
 
 ---
 
@@ -216,9 +216,9 @@ Where:
 
 | Topic | Payload |
 |-------|---------|
-| `sony/tv/<TV_NAME>/cmd/vol_set` | `{"level": 20}` |
-| `sony/tv/<TV_NAME>/cmd/vol_up` | `"1"` |
-| `sony/tv/<TV_NAME>/cmd/vol_down` | `"1"` |
+| `sony/tv/<TV_NAME>/cmd/vol_set` | `"20"` |
+| `sony/tv/<TV_NAME>/cmd/ir_vol_up` | `"1"` |
+| `sony/tv/<TV_NAME>/cmd/ir_vol_down` | `"1"` |
 | `sony/tv/<TV_NAME>/cmd/vol_get` | `"true"` |
 | `sony/tv/<TV_NAME>/status/volume` | `0-99` |
 | `sony/tv/<TV_NAME>/cmd/mute_on` | `"true"` |
